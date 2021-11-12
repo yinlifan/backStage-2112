@@ -35,7 +35,7 @@ class Captcha extends Component {
         key: res.data.key,
         img: res.data.img
       })
-      this.props.setKey(this.state.key)
+      this.props.setKey(res.data.key)
     })
   }
 }

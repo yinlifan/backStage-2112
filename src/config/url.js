@@ -7,9 +7,9 @@ const obj = {
   //  密码验证接口
   PWdLg : prefix + '/api/common/auth/login',
   //  短信验证相关
-  MobileLg : prefix + '/api/common/auth/mobile',
+  MobileVerifyCap : prefix + '/api/common/captcha/verify',
   MobileSendCode : prefix + '/api/common/sms/send',
-  MobileVerifyCap : prefix + '/api/common/captcha/verify'
+  MobileLg : prefix + '/api/common/auth/mobile',
 }
 
 export default obj

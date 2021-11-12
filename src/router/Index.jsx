@@ -2,7 +2,7 @@
 //  在react中使用路由懒加载（提高性能）Suspense组件 和lazy方法
 import React,{Suspense,lazy} from 'react';
 import Loding from '../components/Loding'
-import { Switch,Route,Redirect } from 'react-router-dom';
+import { Switch,Route,Redirect} from 'react-router-dom';
 
 const Index = () => {
   const Login = lazy(() => import('../views/login'))

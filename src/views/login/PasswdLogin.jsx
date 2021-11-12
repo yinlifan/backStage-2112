@@ -1,4 +1,6 @@
+//  密码登录模块
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined, KeyOutlined } from '@ant-design/icons';
 import Captcha from '../../components/Captcha'
@@ -60,7 +62,7 @@ class Passwdlogin extends Component {
             placeholder="验证码"
             style={{width: "65%",marginRight:"15px"}}
           />
-          <Captcha setH={32} setW={96 } setKey={ this.getKey.bind(this) } />
+          <Captcha setH={32} setW={96} setKey={ this.getKey} />
           </div>
       </Form.Item>
 
@@ -84,13 +86,11 @@ class Passwdlogin extends Component {
     })
   };
   //  获取验证码key值
-  getKey(val){
-    this.setState((state) => {
-      state.key = val
-      return state
-    })
-    console.log(this.state);
-  }
+  getKey = (key) => {
+    this.setState({
+        key,
+    });
+};
 }
 
-export default Passwdlogin;
+export default withRouter(Passwdlogin);

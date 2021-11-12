@@ -16,7 +16,7 @@ axios.interceptors.response.use((config) => {
   if (jwt) {
     sessionStorage.setItem('jwt', jwt)
   }
-  return config.data
+  return config
 })
 
 export default axios
