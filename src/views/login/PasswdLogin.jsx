@@ -1,15 +1,21 @@
 //  密码登录模块
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, LockOutlined, KeyOutlined } from '@ant-design/icons';
 import Captcha from '../../components/Captcha'
 import url from '../../config/url'
 import req from '../../http/req';
 
 class Passwdlogin extends Component {
-  //  初始化状态
-  state={}
+  constructor(props){
+    super(props)
+    //  初始化状态
+    this.state={}
+    //  初始化ref
+    this.RefCap = createRef()
+  }
+  
   render() {
     return (
       <div>
@@ -62,7 +68,7 @@ class Passwdlogin extends Component {
             placeholder="验证码"
             style={{width: "65%",marginRight:"15px"}}
           />
-          <Captcha setH={32} setW={96} setKey={ this.getKey} />
+          <Captcha setH={32} setW={96} setKey={ this.getKey} ref={ this.RefCap } />
           </div>
       </Form.Item>
 
@@ -83,6 +89,20 @@ class Passwdlogin extends Component {
     req.post(url.PWdLg, values)
     .then((res) => {
       console.log(res);
+      //  判断请求成功还是失败，并做出相应的提示
+      if(res.data.errNo === 0){
+        // 成功的时候
+        message.success('登录成功!', 2, () => {
+          //  跳转首页
+          this.props.history.push('/home')
+        })
+      }else{
+        //  失败的时候
+        message.error('用户名或密码或验证码错误！', 2, () => {
+          //  刷新验证码，（使用ref获取节点的方式调用）
+          this.RefCap.current.changeCaptcha()
+        })
+      }
     })
   };
   //  获取验证码key值
