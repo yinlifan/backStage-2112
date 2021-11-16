@@ -10,6 +10,7 @@ const obj = {
   MobileVerifyCap : prefix + '/api/common/captcha/verify',
   MobileSendCode : prefix + '/api/common/sms/send',
   MobileLg : prefix + '/api/common/auth/mobile',
+  AdiminInfo: prefix + '/api/common/auth/adminInfo'
 }
 
 export default obj

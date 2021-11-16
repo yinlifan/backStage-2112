@@ -8,6 +8,15 @@ import Mobilelogin from './MobileLogin'
 
 
 class Index extends Component {
+  constructor(props){
+    super(props)
+    //  在这里判断当前用户是否已经登录
+    let jwt = sessionStorage.getItem('jwt')
+    if(jwt){
+      // 去首页
+      this.props.history.push('/dashboard')
+    }
+  }
   render() {
     const { TabPane } = Tabs;
     return (

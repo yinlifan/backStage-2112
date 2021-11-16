@@ -185,7 +185,7 @@ class Mobilelogin extends Component {
         if(res.data.errNo === 0){
           //  登录成功，准备跳转
           message.success('登录成功，准备跳转！', 1.5, () => {
-            this.props.history.push('/home')
+            this.props.history.push('/dashboard')
           })
         }else{
           // 登录失败

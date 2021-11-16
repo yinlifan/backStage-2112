@@ -4,14 +4,17 @@
 //  三 。 key值存储位置？ 谁调用谁存储，如果存在当前组件中，key值会被覆盖（子传父）
 //  四 。 使用方法
 //       接收三个props参数 setW setH  setKey（必须）
+//  五 。 Bug - 当后期有token值的时候，会出现还没有请求完就跳走的现象，需要在组件销毁时取消这次请求
+
 import React, { Component } from 'react';
 import axios from 'axios';
 
 class Captcha extends Component {
   //  初始化状态
-  state={
-
-  }
+  state={}
+  //  cancel Token
+  // CancelToken = axios.CancelToken
+  source = axios.CancelToken.source()
   render() {
     //  灵活的获取验证码大小
     let w = this.props.setW || 120
@@ -29,7 +32,10 @@ class Captcha extends Component {
   //  请求验证码
   changeCaptcha(){
     //  这里的axios使用的是原生的，封装的组件需要做到没有依赖，可以即插即用
-    axios.get('https://reactapi.iynn.cn/captcha/api/math')
+    axios.get('https://reactapi.iynn.cn/captcha/api/math',{
+      //  如果是get请求，参数位于第二个实参，如果是post请求则是第三个实参(给一个用于取消的token值)
+      cancelToken: this.source.token
+    })
     .then((res) => {
       this.setState({
         key: res.data.key,
@@ -37,6 +43,13 @@ class Captcha extends Component {
       })
       this.props.setKey(res.data.key)
     })
+    //  在最后需要加上catch，让错误不显示
+    .catch(function(thrown){})
+  }
+  //  当组件卸载时
+  componentWillUnmount(){
+    //  取消发送请求
+    this.source.cancel()
   }
 }
 

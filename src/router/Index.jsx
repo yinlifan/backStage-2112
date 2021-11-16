@@ -6,10 +6,12 @@ import { Switch,Route,Redirect} from 'react-router-dom';
 
 const Index = () => {
   const Login = lazy(() => import('../views/login'))
+  const Dashboard = lazy(() => import('../views/backend/Dashboard'))
   return (
     <Suspense fallback={<Loding />}>
       <Switch>
           <Route path="/login" component={Login} />
+          <Route path="/dashboard" component={Dashboard} />
           <Redirect exact from="/" to="/login" />
       </Switch>
     </Suspense>

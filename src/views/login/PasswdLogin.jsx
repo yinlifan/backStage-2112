@@ -88,13 +88,12 @@ class Passwdlogin extends Component {
     //  在这里发送请求
     req.post(url.PWdLg, values)
     .then((res) => {
-      console.log(res);
       //  判断请求成功还是失败，并做出相应的提示
       if(res.data.errNo === 0){
         // 成功的时候
         message.success('登录成功!', 2, () => {
           //  跳转首页
-          this.props.history.push('/home')
+          this.props.history.push('/dashboard')
         })
       }else{
         //  失败的时候
